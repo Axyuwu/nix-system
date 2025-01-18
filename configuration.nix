@@ -10,6 +10,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
+  boot.kernel.sysctl = { "vm.swappiness" = 5; };
+
   networking.hostName = "axy";
   networking.networkmanager.enable = true;
 
