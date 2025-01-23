@@ -6,8 +6,13 @@
       ./hardware-configuration.nix
     ];
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 128;
+    editor = false;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 2;
   boot.supportedFilesystems = [ "ntfs" ];
 
   boot.kernel.sysctl = { "vm.swappiness" = 5; };
