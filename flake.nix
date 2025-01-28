@@ -2,18 +2,23 @@
   description = "Axy system configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    pkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "pkgs";
     };
   };
 
-  outputs = { nixpkgs, ... }: {
-    nixosConfigurations.axy = nixpkgs.lib.nixosSystem 
-    (let system = "x86_64-linux"; in {
-      inherit system;
-      modules = [ ./configuration.nix ];
-    });
-  };
+  outputs =
+    { pkgs, ... }:
+    let
+      system = "x86_64-linux";
+    in
+    {
+      formatter.${system} = pkgs.legacyPackages.${system}.nixfmt-rfc-style;
+      nixosConfigurations.axy = pkgs.lib.nixosSystem {
+        inherit system;
+        modules = [ ./configuration.nix ];
+      };
+    };
 }

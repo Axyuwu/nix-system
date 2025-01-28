@@ -1,10 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   boot.loader.systemd-boot = {
     enable = true;
@@ -15,12 +19,17 @@
   boot.loader.timeout = 2;
   boot.supportedFilesystems = [ "ntfs" ];
 
-  boot.kernel.sysctl = { "vm.swappiness" = 5; };
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 5;
+  };
 
   networking.hostName = "axy";
   networking.networkmanager.enable = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   time.timeZone = "Europe/Paris";
 
@@ -55,7 +64,7 @@
   users.users.axy = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    packages = [];
+    packages = [ ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -65,7 +74,7 @@
 
   security.polkit.enable = true;
 
-  hardware.graphics = { 
+  hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
@@ -74,4 +83,3 @@
 
   system.stateVersion = "24.05"; # DO NOT CHANGE
 }
-
