@@ -61,6 +61,11 @@
     ];
   };
 
+  programs.envision = {
+    enable = true;
+    openFirewall = true;
+  };
+
   users.users.axy = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
