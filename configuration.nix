@@ -61,6 +61,8 @@
     ];
   };
 
+  services.avahi.enable = true;
+
   users.users.axy = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
