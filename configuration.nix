@@ -45,6 +45,10 @@
     dates = "weekly";
     options = "--delete-older-than 30d";
   };
+   
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "cuda-merged"
+  ];
 
   services.pipewire = {
     enable = true;
