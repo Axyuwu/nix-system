@@ -38,6 +38,15 @@
     font = "Lat2-Terminus16";
     keyMap = "fr";
   };
+  
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      PasswordAuthentication = true;
+      AllowUsers = null;
+    };
+  };
 
   nix.optimise.automatic = true;
   nix.gc = {
