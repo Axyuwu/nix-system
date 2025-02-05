@@ -29,7 +29,6 @@
     options v4l2loopback devices=1 video_nr=1 card_label="Virtual Cam" exclusive_caps=1
   '';
 
-
   networking.hostName = "axy";
   networking.networkmanager.enable = true;
 
@@ -45,7 +44,7 @@
     font = "Lat2-Terminus16";
     keyMap = "fr";
   };
-  
+
   services.openssh = {
     enable = true;
     ports = [ 22 ];
@@ -61,7 +60,7 @@
     dates = "weekly";
     options = "--delete-older-than 30d";
   };
-   
+
   services.pipewire = {
     enable = true;
     pulse.enable = true;
@@ -79,7 +78,10 @@
 
   users.users.axy = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "adbusers" ];
+    extraGroups = [
+      "wheel"
+      "adbusers"
+    ];
     packages = [ ];
   };
 
@@ -88,7 +90,10 @@
     home-manager
   ];
 
-  services.udev.packages = with pkgs; [ android-udev-rules steam-devices-udev-rules ];
+  services.udev.packages = with pkgs; [
+    android-udev-rules
+    steam-devices-udev-rules
+  ];
 
   security.polkit.enable = true;
 
