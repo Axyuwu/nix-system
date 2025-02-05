@@ -23,6 +23,8 @@
     "vm.swappiness" = 5;
   };
 
+  boot.kernelModules = [ "v4l2loopback" ];
+
   networking.hostName = "axy";
   networking.networkmanager.enable = true;
 
