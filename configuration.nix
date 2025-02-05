@@ -84,6 +84,8 @@
     home-manager
   ];
 
+  services.udev.packages = with pkgs; [ android-udev-rules steam-devices-udev-rules ];
+
   security.polkit.enable = true;
 
   hardware.graphics = {
