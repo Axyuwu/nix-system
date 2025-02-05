@@ -75,7 +75,7 @@
 
   users.users.axy = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "adbusers" ];
     packages = [ ];
   };
 
