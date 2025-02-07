@@ -36,10 +36,7 @@
     "nix-command"
     "flakes"
   ];
-  nix.extraOptions = ''
-    keep-outputs = true
-    keep-derivations = true
-  '';
+  nix.settings.keep-output = true;
 
   time.timeZone = "Europe/Paris";
 
