@@ -32,11 +32,13 @@
   networking.hostName = "axy";
   networking.networkmanager.enable = true;
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-  nix.settings.keep-outputs = true;
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    keep-outputs = true;
+  };
 
   time.timeZone = "Europe/Paris";
 
