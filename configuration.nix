@@ -98,7 +98,7 @@
     steam-devices-udev-rules
   ];
 
-  services.pam.services.swaylock = { };
+  security.pam.services.swaylock = { };
 
   security.polkit.enable = true;
 
