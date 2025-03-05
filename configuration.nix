@@ -98,6 +98,8 @@
     steam-devices-udev-rules
   ];
 
+  services.udisk2.enable = true;
+
   security.pam.services.swaylock = { };
 
   security.polkit.enable = true;
