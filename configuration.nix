@@ -1,15 +1,10 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
-
   boot.loader.systemd-boot = {
     enable = true;
     configurationLimit = 128;
@@ -19,17 +14,12 @@
   boot.loader.timeout = 2;
   boot.supportedFilesystems = [ "ntfs" ];
 
-  boot.kernel.sysctl = {
-    "vm.swappiness" = 5;
-  };
-
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
   boot.kernelModules = [ "v4l2loopback" ];
   boot.extraModprobeConfig = ''
     options v4l2loopback devices=1 video_nr=1 card_label="Virtual Cam" exclusive_caps=1
   '';
 
-  networking.hostName = "axy";
   networking.networkmanager.enable = true;
 
   nix.settings = {
@@ -87,11 +77,6 @@
     ];
     packages = [ ];
   };
-
-  environment.systemPackages = with pkgs; [
-    vim
-    home-manager
-  ];
 
   services.udev.packages = with pkgs; [
     android-udev-rules
