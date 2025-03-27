@@ -17,10 +17,14 @@
         pkgs.lib.nixosSystem {
           system = value.system;
           modules = value.modules ++ [
-            { networking.hostname = name; }
+            { networking.hostName = name; }
             ./configuration.nix
+            {
+              system.stateVersion = value.stateVersion;
+            }
           ];
         }
       ) (import ./systems);
     };
+
 }

@@ -95,6 +95,4 @@
   };
 
   networking.firewall.enable = false;
-
-  system.stateVersion = "24.05"; # DO NOT CHANGE
 }

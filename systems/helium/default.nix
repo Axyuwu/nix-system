@@ -1,6 +1,7 @@
 {
   system = "x86_64-linux";
   modules = [
-    (import ./hardware-configuration.nix)
+    ./hardware-config.nix
   ];
+  stateVersion = "24.05";
 }
