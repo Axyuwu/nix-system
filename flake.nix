@@ -3,12 +3,12 @@
 
   inputs = {
     pkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtime/flake-utils";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
     { pkgs, flake-utils, ... }:
-    (flake-utils.eachDefaultSystem (system: {
+    (flake-utils.lib.eachDefaultSystem (system: {
       formatter = pkgs.legacyPackages.${system}.nixfmt-rfc-style;
     }))
     // {
@@ -21,6 +21,6 @@
             ./configuration.nix
           ];
         }
-      );
+      ) (import ./systems);
     };
 }
