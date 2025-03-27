@@ -54,6 +54,10 @@
     options = "--delete-older-than 30d";
   };
 
+  nix.settings.trusted-public-keys = [
+    "cache.uwuaxy.net:ruU/9bkyjl1v7GMSJLtoc6FMJydIYeuVNRYKxqiYJ48="
+  ];
+
   services.pipewire = {
     enable = true;
     pulse.enable = true;
