@@ -1,4 +1,4 @@
 {
   system = "x86_64-linux";
-  modules = [ ./hardware-configuration.nix ];
+  modules = [ (import ./hardware-configuration.nix) ];
 }
