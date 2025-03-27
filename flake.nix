@@ -3,7 +3,7 @@
 
   inputs = {
     pkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.rul = "github:numtime/flake-utils";
+    flake-utils.url = "github:numtime/flake-utils";
   };
 
   outputs =
