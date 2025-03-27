@@ -28,6 +28,17 @@
       "flakes"
     ];
     keep-outputs = true;
+    trusted-public-keys = [
+      "cache.uwuaxy.net:ruU/9bkyjl1v7GMSJLtoc6FMJydIYeuVNRYKxqiYJ48="
+    ];
+    trusted-users = [ "@wheel" ];
+  };
+
+  nix.optimise.automatic = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
   };
 
   time.timeZone = "Europe/Paris";
@@ -46,17 +57,6 @@
       AllowUsers = null;
     };
   };
-
-  nix.optimise.automatic = true;
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-
-  nix.settings.trusted-public-keys = [
-    "cache.uwuaxy.net:ruU/9bkyjl1v7GMSJLtoc6FMJydIYeuVNRYKxqiYJ48="
-  ];
 
   services.pipewire = {
     enable = true;
