@@ -42,6 +42,9 @@
     ];
     trusted-users = [ "@wheel" ];
   };
+  nix.extraOptions = ''
+    fallback = true
+  '';
 
   nix.optimise.automatic = true;
   nix.gc = {
