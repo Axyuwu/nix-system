@@ -36,7 +36,7 @@
     trusted-public-keys = [
       "uwuaxy.net/nixcache:Cs1U4hIsAWS1RqbNTKDRM3KbT6MFCp8bfSdX6rfk5/A="
     ];
-    substituters = [
+    trusted-substituters = [
       "https://helium.uwuaxy.net/nixcache/"
       "https://neon.uwuaxy.net/nixcache/"
     ];
