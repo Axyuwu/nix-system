@@ -130,5 +130,12 @@
     enable32Bit = true;
   };
 
-  networking.firewall.enable = false;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      22
+      80
+      443
+    ];
+  };
 }
