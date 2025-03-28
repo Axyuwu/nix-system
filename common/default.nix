@@ -61,7 +61,7 @@
     enable = true;
     recommendedProxySettings = true;
     virtualHosts = {
-      "nixcache.${systemName}.uwuaxy.net" = {
+      "${systemName}.uwuaxy.net" = {
         forceSSL = true;
         enableACME = true;
         locations."/nixcache/".proxyPass =
