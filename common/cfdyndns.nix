@@ -20,7 +20,7 @@ let
 
     ID=$(echo $RECORD | ${pkgs.jq}/bin/jq -r '.id')
 
-    IP=$(curl https://api64.ipify.org)
+    IP=$(${pkgs.curl}/bin/curl https://api64.ipify.org)
 
     BODY=$(printf '{
       "comment": "Dynamic dns address for host ${systemName}",
@@ -32,7 +32,7 @@ let
     }' \
     $IP)
 
-    curl -X PATCH \
+    ${pkgs.curl}/bin/curl -X PATCH \
     "${base_url}/$ID" \
     -H 'Content-Type: application/json' \
     -H "$BEARER_AUTH" \
