@@ -15,13 +15,12 @@
       nixosConfigurations = builtins.mapAttrs (
         name: value:
         pkgs.lib.nixosSystem {
+          specialArgs = {
+            systemName = name;
+          };
           system = value.system;
           modules = value.modules ++ [
-            { networking.hostName = name; }
-            ./configuration.nix
-            {
-              system.stateVersion = value.stateVersion;
-            }
+            ./common
           ];
         }
       ) (import ./systems);

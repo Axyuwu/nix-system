@@ -1,4 +1,5 @@
 {
+  systemName,
   config,
   pkgs,
   ...
@@ -22,6 +23,8 @@
 
   networking.networkmanager.enable = true;
 
+  networking.hostName = systemName;
+
   nix.settings = {
     experimental-features = [
       "nix-command"
@@ -31,6 +34,10 @@
     trusted-public-keys = [
       "cache.uwuaxy.net:ruU/9bkyjl1v7GMSJLtoc6FMJydIYeuVNRYKxqiYJ48="
     ];
+    substituters = [
+      "https://nixcache.helium.uwuaxy.net/"
+      "https://nixcache.neon.uwuaxy.net/"
+    ];
     trusted-users = [ "@wheel" ];
   };
 
@@ -39,6 +46,28 @@
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 30d";
+  };
+
+  services.nix-serve = {
+    enable = true;
+    secretKeyFile = "/var/nixcache-key.priv";
+  };
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "gilliardmarthey.axel@gmail.com";
+  };
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+    virtualHosts = {
+      "nixcache.${systemName}.uwuaxy.net" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/".proxyPass =
+          "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
+      };
+    };
   };
 
   time.timeZone = "Europe/Paris";
@@ -53,7 +82,7 @@
     enable = true;
     ports = [ 22 ];
     settings = {
-      PasswordAuthentication = true;
+      PasswordAuthentication = false;
       AllowUsers = null;
     };
   };
