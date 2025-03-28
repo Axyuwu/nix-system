@@ -32,11 +32,11 @@
     ];
     keep-outputs = true;
     trusted-public-keys = [
-      "cache.uwuaxy.net:ruU/9bkyjl1v7GMSJLtoc6FMJydIYeuVNRYKxqiYJ48="
+      "uwuaxy.net/nixcache:Cs1U4hIsAWS1RqbNTKDRM3KbT6MFCp8bfSdX6rfk5/A="
     ];
     substituters = [
-      "https://nixcache.helium.uwuaxy.net/"
-      "https://nixcache.neon.uwuaxy.net/"
+      "https://helium.uwuaxy.net/nixcache/"
+      "https://neon.uwuaxy.net/nixcache/"
     ];
     trusted-users = [ "@wheel" ];
   };
@@ -64,8 +64,8 @@
       "nixcache.${systemName}.uwuaxy.net" = {
         forceSSL = true;
         enableACME = true;
-        locations."/".proxyPass =
-          "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
+        locations."/nixcache/".proxyPass =
+          "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}/";
       };
     };
   };
