@@ -6,7 +6,10 @@
 }:
 
 {
-  imports = [ ./cfdyndns.nix ];
+  imports = [
+    ./cfdyndns.nix
+    ./autosubs.nix
+  ];
 
   boot.loader.systemd-boot = {
     enable = true;
@@ -42,9 +45,6 @@
     ];
     trusted-users = [ "@wheel" ];
   };
-  nix.extraOptions = ''
-    fallback = true
-  '';
 
   nix.optimise.automatic = true;
   nix.gc = {

@@ -59,14 +59,12 @@ in
       Type = "oneshot";
     };
   };
-  systemd.timers."cfdyndns" = {
+  systemd.timers.cfdyndns = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnBootSec = "5m";
+      OnBootSec = "1m";
       OnUnitActiveSec = "5m";
       Unit = "cfdyndns.service";
     };
-
   };
-  environment.systemPackages = [ dyndns_script ];
 }
