@@ -11,7 +11,7 @@ let
 
     BEARER_AUTH="Authorization: Bearer $(echo -n $(cat /var/cfdyndns.tok))"
 
-    RECORD=$(${pkgs.curl}/bin/curl -G \
+    RECORD=$(${pkgs.curl}/bin/curl -s -S -G \
     '${base_url}' \
     -d 'type=AAAA' \
     -d 'name.exact=${systemName}.uwuaxy.net' \
@@ -38,11 +38,18 @@ let
     }' \
     $IP)
 
-    ${pkgs.curl}/bin/curl -X PATCH \
+    RESULT=$(${pkgs.curl}/bin/curl -s -S -X PATCH \
     "${base_url}/$ID" \
     -H 'Content-Type: application/json' \
     -H "$BEARER_AUTH" \
-    -d "$BODY"
+    -d "$BODY")
+
+    if [[ $(echo -n "$RESULT" | ${pkgs.jq}/bin/jq '.success') != "true" ]]; then
+      echo "Failed to update cloudflare dns"
+      echo "Response:"
+      echo -n "$RESULT" | ${pkgs.jq}/bin/jq
+      exit 1
+    fi
   '';
 in
 {
