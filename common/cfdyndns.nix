@@ -20,7 +20,13 @@ let
 
     ID=$(echo $RECORD | ${pkgs.jq}/bin/jq -r '.id')
 
-    IP=$(${pkgs.curl}/bin/curl https://api64.ipify.org)
+    IP=$(
+      ${pkgs.iproute2}/bin/ip -o -6 addr show up primary scope global \
+      | head -n 1 \
+      | while read -r num dev fam addr rem; do 
+          echo ''${addr%/*}; \
+        done
+      )
 
     BODY=$(printf '{
       "comment": "Dynamic dns address for host ${systemName}",
