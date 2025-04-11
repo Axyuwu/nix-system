@@ -65,7 +65,8 @@ in
     script = ''
       ${dyndns_script}/bin/cfdyndns
     '';
-    after = [ "network.target" ];
+    after = [ "network-online.target" ];
+    requires = [ "network-online.target" ];
     serviceConfig = {
       User = "cfdyndns";
       Group = "cfdyndns";

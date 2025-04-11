@@ -27,7 +27,8 @@
 
       echo -n $CONF > /etc/xdg/nix/autosubs.conf
     '';
-    after = [ "network.target" ];
+    after = [ "network-online.target" ];
+    requires = [ "network-online.target" ];
     serviceConfig = {
       User = "autosubs";
       Group = "autosubs";
