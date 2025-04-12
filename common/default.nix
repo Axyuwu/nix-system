@@ -13,7 +13,7 @@
 
   boot.loader.systemd-boot = {
     enable = true;
-    configurationLimit = 128;
+    configurationLimit = 16;
     editor = false;
   };
   boot.loader.efi.canTouchEfiVariables = true;
