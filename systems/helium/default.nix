@@ -7,6 +7,7 @@
         defaultPartitions.enable = true;
         cpuVendor = "amd";
       };
+      isDesktop = true;
       boot.initrd.availableKernelModules = [
         "nvme"
         "xhci_pci"

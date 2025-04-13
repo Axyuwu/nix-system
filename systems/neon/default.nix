@@ -7,6 +7,7 @@
         defaultPartitions.enable = true;
         cpuVendor = "intel";
       };
+      isDesktop = true;
       boot.initrd.availableKernelModules = [
         "vmd"
         "xhci_pci"

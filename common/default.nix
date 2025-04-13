@@ -10,6 +10,7 @@
     ./cfdyndns.nix
     ./autosubs.nix
     ./hardware.nix
+    ./desktop.nix
   ];
 
   boot.loader.systemd-boot = {
@@ -20,12 +21,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 2;
   boot.supportedFilesystems = [ "ntfs" ];
-
-  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
-  boot.kernelModules = [ "v4l2loopback" ];
-  boot.extraModprobeConfig = ''
-    options v4l2loopback devices=1 video_nr=1 card_label="Virtual Cam" exclusive_caps=1
-  '';
 
   networking.networkmanager.enable = true;
 
@@ -93,48 +88,20 @@
     };
   };
 
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    wireplumber.enable = true;
-  };
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    config.common.default = "*";
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-wlr
-    ];
-  };
-
   users.users.axy = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
       "networkmanager"
-      "adbusers"
     ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBeg1XlbH/rtR1uXd5GuWiZuJsmGfUtJHccnODKt6pYi"
     ];
   };
 
-  services.udev.packages = with pkgs; [
-    android-udev-rules
-    steam-devices-udev-rules
-  ];
-
   services.udisks2.enable = true;
 
-  security.pam.services.swaylock = { };
-
   security.polkit.enable = true;
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
 
   networking.firewall = {
     enable = true;
