@@ -13,13 +13,15 @@
     }))
     // {
       nixosConfigurations = builtins.mapAttrs (
-        name: value:
+        name:
+        { system, modules }:
         pkgs.lib.nixosSystem {
           specialArgs = {
             systemName = name;
+            systemPlatform = system;
           };
-          system = value.system;
-          modules = value.modules ++ [
+          inherit system;
+          modules = modules ++ [
             ./common
           ];
         }

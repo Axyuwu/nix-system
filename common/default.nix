@@ -9,6 +9,7 @@
   imports = [
     ./cfdyndns.nix
     ./autosubs.nix
+    ./hardware.nix
   ];
 
   boot.loader.systemd-boot = {

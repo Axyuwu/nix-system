@@ -1,7 +1,18 @@
 {
   system = "x86_64-linux";
   modules = [
-    ./hardware-config.nix
-    { system.stateVersion = "24.05"; }
+    {
+      system.stateVersion = "24.05";
+      hardware = {
+        defaultPartitions.enable = true;
+        cpuVendor = "amd";
+      };
+      boot.initrd.availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "ahci"
+        "usbhid"
+      ];
+    }
   ];
 }
