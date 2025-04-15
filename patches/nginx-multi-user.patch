@@ -7,7 +7,7 @@ index bf6585645..106d2f2c3 100644
      systemd.services.nginx = {
        description = "Nginx Web Server";
 -      wantedBy = [ "multi-user.target" ];
-+      wantedBy = [ "default.target" ];
++      wantedBy = [ "deferred-init.target" ];
        wants = concatLists (map (certName: [ "acme-finished-${certName}.target" ]) vhostCertNames);
        after =
          [ "network.target" ]
@@ -16,7 +16,7 @@ index bf6585645..106d2f2c3 100644
        mkIf (cfg.enableReload || vhostCertNames != [ ]) {
          wants = optionals cfg.enableReload [ "nginx.service" ];
 -        wantedBy = sslServices ++ [ "multi-user.target" ];
-+        wantedBy = sslServices ++ [ "default.target" ];
++        wantedBy = sslServices ++ [ "deferred-init.target"  ];
          # Before the finished targets, after the renew services.
          # This service might be needed for HTTP-01 challenges, but we only want to confirm
          # certs are updated _after_ config has been reloaded.

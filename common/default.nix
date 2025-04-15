@@ -11,6 +11,7 @@
     ./autosubs.nix
     ./hardware.nix
     ./desktop.nix
+    ./systemd.nix
   ];
 
   boot.loader.systemd-boot = {
