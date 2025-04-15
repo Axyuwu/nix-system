@@ -1,7 +1,7 @@
 {
   systemName,
   config,
-  pkgs,
+  lib,
   ...
 }:
 
@@ -49,18 +49,20 @@
     options = "--delete-older-than 30d";
   };
 
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "gilliardmarthey.axel@gmail.com";
+  };
   services.nix-serve = {
     enable = true;
     secretKeyFile = "/var/nixcache-key.priv";
   };
 
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "gilliardmarthey.axel@gmail.com";
+  services.nginx = {
+    recommendedProxySettings = lib.mkDefault true;
   };
   services.nginx = {
     enable = true;
-    recommendedProxySettings = true;
     virtualHosts = {
       "${systemName}.uwuaxy.net" = {
         forceSSL = true;

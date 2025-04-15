@@ -2,20 +2,28 @@
   description = "Axy system configuration";
 
   inputs = {
-    pkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
-    { pkgs, flake-utils, ... }:
+    { nixpkgs, flake-utils, ... }:
     (flake-utils.lib.eachDefaultSystem (system: {
-      formatter = pkgs.legacyPackages.${system}.nixfmt-rfc-style;
+      formatter = (import nixpkgs { inherit system; }).nixfmt-rfc-style;
     }))
     // {
       nixosConfigurations = builtins.mapAttrs (
         name:
         { system, modules }:
-        pkgs.lib.nixosSystem {
+        let
+          originPkgs = import nixpkgs { inherit system; };
+          pkgs = originPkgs.applyPatches {
+            name = "nixpkgs-patched";
+            src = nixpkgs;
+            patches = import ./patches;
+          };
+        in
+        import (pkgs + "/nixos/lib/eval-config.nix") {
           specialArgs = {
             systemName = name;
             systemPlatform = system;
