@@ -1,5 +1,9 @@
 {
   system = "x86_64-linux";
+  features = (import ./features.nix).mkFeatures {
+    desktop = true;
+    nixcache = true;
+  };
   modules = [
     {
       system.stateVersion = "24.05";
@@ -7,7 +11,6 @@
         defaultPartitions.enable = true;
         cpuVendor = "amd";
       };
-      isDesktop = true;
       boot.initrd.availableKernelModules = [
         "nvme"
         "xhci_pci"

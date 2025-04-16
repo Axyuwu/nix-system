@@ -1,5 +1,8 @@
 {
   system = "x86_64-linux";
+  features = (import ./features.nix).mkFeatures {
+    desktop = true;
+  };
   modules = [
     {
       system.stateVersion = "24.11";
@@ -7,7 +10,6 @@
         defaultPartitions.enable = true;
         cpuVendor = "intel";
       };
-      isDesktop = true;
       boot.initrd.availableKernelModules = [
         "vmd"
         "xhci_pci"

@@ -14,7 +14,11 @@
     // {
       nixosConfigurations = builtins.mapAttrs (
         name:
-        { system, modules }:
+        {
+          system,
+          modules,
+          features,
+        }:
         let
           originPkgs = import nixpkgs { inherit system; };
           pkgs = originPkgs.applyPatches {
@@ -31,6 +35,7 @@
           inherit system;
           modules = modules ++ [
             ./common
+            ((import systems/features.nix).toModule features)
           ];
         }
       ) (import ./systems);

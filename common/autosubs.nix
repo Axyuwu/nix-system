@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 {
   environment.etc."xdg/nix/nix.conf".text = "include autosubs.conf";
   environment.etc."xdg/nix/autosubs.conf" = {
@@ -19,7 +23,13 @@
 
       CONF="extra-substituters ="
 
-      for HOST in helium neon; do
+      for HOST in ${
+        lib.strings.escapeShellArgs (
+          lib.attrsets.mapAttrsToList (name: _system: name) (
+            lib.attrsets.filterAttrs (_name: system: system.features.nixcache) (import ../systems)
+          )
+        )
+      }; do
         if ${pkgs.iputils}/bin/ping -c 1 -W 0.5 "$HOST.uwuaxy.net"; then
           CONF="$CONF https://$HOST.uwuaxy.net/nixcache/"
         fi

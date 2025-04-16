@@ -1,6 +1,5 @@
 {
   systemName,
-  config,
   lib,
   ...
 }:
@@ -12,6 +11,9 @@
     ./hardware.nix
     ./desktop.nix
     ./postinit.nix
+    ./headless.nix
+    ./nixcache.nix
+    ./nix-settings.nix
   ];
 
   boot.loader.systemd-boot = {
@@ -27,32 +29,11 @@
 
   networking.hostName = systemName;
 
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    keep-outputs = true;
-    trusted-public-keys = [
-      "uwuaxy.net/nixcache:Cs1U4hIsAWS1RqbNTKDRM3KbT6MFCp8bfSdX6rfk5/A="
-    ];
-    trusted-substituters = [
-      "https://helium.uwuaxy.net/nixcache/"
-      "https://neon.uwuaxy.net/nixcache/"
-    ];
-    trusted-users = [ "@wheel" ];
-  };
-
   nix.optimise.automatic = true;
   nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 30d";
-  };
-
-  services.nix-serve = {
-    enable = true;
-    secretKeyFile = "/var/nixcache-key.priv";
   };
 
   security.acme = {
@@ -61,17 +42,6 @@
   };
   services.nginx = {
     recommendedProxySettings = lib.mkDefault true;
-  };
-  services.nginx = {
-    enable = true;
-    virtualHosts = {
-      "${systemName}.uwuaxy.net" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/nixcache/".proxyPass =
-          "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}/";
-      };
-    };
   };
 
   time.timeZone = "Europe/Paris";
@@ -100,7 +70,9 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBeg1XlbH/rtR1uXd5GuWiZuJsmGfUtJHccnODKt6pYi"
     ];
+    hashedPassword = "$y$j9T$hOeiMzRe59HQfJqmh/iXE/$OPDAqrtFRa4qMe29QOblw355k0j3fnzpcXdbjzq5lM4";
   };
+  users.mutableUsers = false;
 
   services.udisks2.enable = true;
 

@@ -22,7 +22,9 @@ in
       type = types.enum [
         "amd"
         "intel"
+        "unknown"
       ];
+      default = "unknown";
     };
   };
   config = lib.mkMerge [
@@ -50,8 +52,10 @@ in
       networking.useDHCP = lib.mkDefault true;
       nixpkgs.hostPlatform = systemPlatform;
       hardware.enableRedistributableFirmware = true;
+    }
+    (lib.mkIf (cfg.cpuVendor == "amd" || cfg.cpuVendor == "intel") {
       boot.kernelModules = [ "kvm-${cfg.cpuVendor}" ];
       hardware.cpu.${cfg.cpuVendor}.updateMicrocode = true;
-    }
+    })
   ];
 }
