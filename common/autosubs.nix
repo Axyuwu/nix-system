@@ -38,7 +38,7 @@
   systemd.timers.autosubs = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnBootSec = "0s";
+      OnBootSec = "10s";
       OnUnitActiveSec = "5m";
       Unit = "autosubs.service";
     };

@@ -36,8 +36,8 @@
       "uwuaxy.net/nixcache:Cs1U4hIsAWS1RqbNTKDRM3KbT6MFCp8bfSdX6rfk5/A="
     ];
     trusted-substituters = [
-      "https://helium.uwuaxy.net/nixcache/"
-      "https://neon.uwuaxy.net/nixcache/"
+      "http://helium.uwuaxy.net/nixcache/"
+      "http://neon.uwuaxy.net/nixcache/"
     ];
     trusted-users = [ "@wheel" ];
   };
@@ -49,10 +49,6 @@
     options = "--delete-older-than 30d";
   };
 
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "gilliardmarthey.axel@gmail.com";
-  };
   services.nix-serve = {
     enable = true;
     secretKeyFile = "/var/nixcache-key.priv";
@@ -65,8 +61,6 @@
     enable = true;
     virtualHosts = {
       "${systemName}.uwuaxy.net" = {
-        forceSSL = true;
-        enableACME = true;
         locations."/nixcache/".proxyPass =
           "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}/";
       };

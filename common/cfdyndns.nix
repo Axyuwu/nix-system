@@ -76,7 +76,7 @@ in
   systemd.timers.cfdyndns = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnBootSec = "0s";
+      OnBootSec = "10s";
       OnUnitActiveSec = "5m";
       Unit = "cfdyndns.service";
     };
