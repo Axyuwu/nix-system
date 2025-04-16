@@ -11,6 +11,7 @@
     ./autosubs.nix
     ./hardware.nix
     ./desktop.nix
+    ./postinit.nix
   ];
 
   boot.loader.systemd-boot = {
@@ -36,8 +37,8 @@
       "uwuaxy.net/nixcache:Cs1U4hIsAWS1RqbNTKDRM3KbT6MFCp8bfSdX6rfk5/A="
     ];
     trusted-substituters = [
-      "http://helium.uwuaxy.net/nixcache/"
-      "http://neon.uwuaxy.net/nixcache/"
+      "https://helium.uwuaxy.net/nixcache/"
+      "https://neon.uwuaxy.net/nixcache/"
     ];
     trusted-users = [ "@wheel" ];
   };
@@ -54,6 +55,10 @@
     secretKeyFile = "/var/nixcache-key.priv";
   };
 
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "gilliardmarthey.axel@gmail.com";
+  };
   services.nginx = {
     recommendedProxySettings = lib.mkDefault true;
   };
@@ -61,6 +66,8 @@
     enable = true;
     virtualHosts = {
       "${systemName}.uwuaxy.net" = {
+        forceSSL = true;
+        enableACME = true;
         locations."/nixcache/".proxyPass =
           "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}/";
       };

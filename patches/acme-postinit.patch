@@ -1,0 +1,22 @@
+diff --git a/nixos/modules/security/acme/default.nix b/nixos/modules/security/acme/default.nix
+index 286814eab..c480af8f7 100644
+--- a/nixos/modules/security/acme/default.nix
++++ b/nixos/modules/security/acme/default.nix
+@@ -414,7 +414,7 @@ let
+         requires = [ "acme-setup.service" ];
+ 
+         # https://github.com/NixOS/nixpkgs/pull/81371#issuecomment-605526099
+-        wantedBy = lib.optionals (!config.boot.isContainer) [ "multi-user.target" ];
++        wantedBy = lib.optionals (!config.boot.isContainer) [ "postinit.target" ];
+ 
+         path = with pkgs; [
+           lego
+@@ -1160,7 +1160,7 @@ in
+           finishedTargets = lib.mapAttrs' (
+             cert: conf:
+             lib.nameValuePair "acme-finished-${cert}" {
+-              wantedBy = [ "default.target" ];
++              wantedBy = [ "postinit.target" ];
+               requires = [ "acme-${cert}.service" ];
+               after = [ "acme-${cert}.service" ];
+             }

@@ -67,6 +67,7 @@ in
     '';
     after = [ "network-online.target" ];
     requires = [ "network-online.target" ];
+    wantedBy = [ "postinit.target" ];
     serviceConfig = {
       User = "cfdyndns";
       Group = "cfdyndns";
@@ -76,7 +77,6 @@ in
   systemd.timers.cfdyndns = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnBootSec = "10s";
       OnUnitActiveSec = "5m";
       Unit = "cfdyndns.service";
     };

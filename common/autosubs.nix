@@ -29,6 +29,7 @@
     '';
     after = [ "network-online.target" ];
     requires = [ "network-online.target" ];
+    wantedBy = [ "postinit.target" ];
     serviceConfig = {
       User = "autosubs";
       Group = "autosubs";
@@ -38,7 +39,6 @@
   systemd.timers.autosubs = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnBootSec = "10s";
       OnUnitActiveSec = "5m";
       Unit = "autosubs.service";
     };
