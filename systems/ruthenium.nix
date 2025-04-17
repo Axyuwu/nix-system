@@ -2,13 +2,14 @@
   system = "x86_64-linux";
   features = (import ./features.nix).mkFeatures {
     headless = true;
+    nixcache = true;
   };
   modules = [
     {
       system.stateVersion = "24.11";
       hardware = {
         defaultPartitions.enable = true;
-        enableAllHardware = true;
+        cpuVendor = "amd";
       };
       boot.initrd.availableKernelModules = [
         "xhci_pci"
