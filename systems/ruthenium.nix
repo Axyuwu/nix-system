@@ -1,7 +1,7 @@
 {
   system = "x86_64-linux";
   features = (import ./features.nix).mkFeatures {
-    headless = true;
+    # headless = true;
     nixcache = true;
   };
   modules = [
