@@ -11,8 +11,12 @@
         enableAllHardware = true;
       };
       boot.initrd.availableKernelModules = [
-        "nvme"
         "xhci_pci"
+        "ahci"
+        "nvme"
+        "usb_storage"
+        "usbhid"
+        "sd-mod"
       ];
     }
   ];
