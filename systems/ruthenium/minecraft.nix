@@ -16,4 +16,5 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEfwxBuwDrd/yy/69ZRuj7xdCtanimkCuYVWh2ihM4rM"
     ];
   };
+  networking.firewall.allowedTCPPorts = [ 25565 ];
 }
