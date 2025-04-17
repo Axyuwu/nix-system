@@ -1,6 +1,6 @@
 {
   system = "x86_64-linux";
-  features = (import ./features.nix).mkFeatures {
+  features = (import ../features.nix).mkFeatures {
     headless = true;
     nixcache = true;
   };
@@ -20,5 +20,6 @@
         "sd-mod"
       ];
     }
+    (import ./minecraft.nix)
   ];
 }

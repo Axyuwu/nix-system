@@ -1,6 +1,6 @@
 {
   system = "x86_64-linux";
-  features = (import ./features.nix).mkFeatures {
+  features = (import ../features.nix).mkFeatures {
     desktop = true;
   };
   modules = [
