@@ -20,6 +20,7 @@
     enable = true;
     configurationLimit = 16;
     editor = false;
+    graceful = true;
   };
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 2;

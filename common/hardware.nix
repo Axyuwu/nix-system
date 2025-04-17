@@ -53,9 +53,13 @@ in
       nixpkgs.hostPlatform = systemPlatform;
       hardware.enableRedistributableFirmware = true;
     }
-    (lib.mkIf (cfg.cpuVendor == "amd" || cfg.cpuVendor == "intel") {
-      boot.kernelModules = [ "kvm-${cfg.cpuVendor}" ];
-      hardware.cpu.${cfg.cpuVendor}.updateMicrocode = true;
+    (lib.mkIf (cfg.cpuVendor == "amd") {
+      boot.kernelModules = [ "kvm-amd" ];
+      hardware.cpu.amd.updateMicrocode = true;
+    })
+    (lib.mkIf (cfg.cpuVendor == "intel") {
+      boot.kernelModules = [ "kvm-intel" ];
+      hardware.cpu.intel.updateMicrocode = true;
     })
   ];
 }
