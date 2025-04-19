@@ -21,5 +21,6 @@
       ];
     }
     (import ./minecraft.nix)
+    (import ./ntm_space.nix)
   ];
 }
