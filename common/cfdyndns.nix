@@ -9,13 +9,11 @@ let
   dyndns_script = pkgs.writeShellScriptBin "cfdyndns" ''
     set -e -u -o pipefail
 
-    BEARER_AUTH="Authorization: Bearer $(echo -n $(cat /var/cfdyndns.tok))"
-
     RECORD=$(${pkgs.curl}/bin/curl -s -S -G \
     '${base_url}' \
     -d 'type=AAAA' \
     -d 'name.exact=${systemName}.uwuaxy.net' \
-    -H "$BEARER_AUTH" \
+    -H @/var/cfdyndns.header \
     | ${pkgs.jq}/bin/jq '.result.[0]')
 
     ID=$(echo $RECORD | ${pkgs.jq}/bin/jq -r '.id')
@@ -41,7 +39,7 @@ let
     RESULT=$(${pkgs.curl}/bin/curl -s -S -X PATCH \
     "${base_url}/$ID" \
     -H 'Content-Type: application/json' \
-    -H "$BEARER_AUTH" \
+    -H @/var/cfdyndns.header \
     -d "$BODY")
 
     if [[ $(echo -n "$RESULT" | ${pkgs.jq}/bin/jq '.success') != "true" ]]; then
