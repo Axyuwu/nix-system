@@ -15,7 +15,7 @@ in
       fqdn = "${systemName}.uwuaxy.net";
       domains = [ "uwuaxy.net" ];
       loginAccounts."axy@uwuaxy.net" = {
-        hashedPassword = "$2b$05$FeF3WE4cShOUTP/.cOIl1u/eqvIazjSHieewDM.6Y5oODTd9FnJBC";
+        hashedPassword = "$2b$05$cKW9J60CENZUjbpFLXhhkejC/o60KxmItMpO2mslCv5d1Pu8zyRzq";
         aliases = [ "@uwuaxy.net" ];
         catchAll = [ "uwuaxy.net" ];
       };
