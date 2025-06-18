@@ -19,7 +19,7 @@
         "usbhid"
         "sd-mod"
       ];
-      #mailserver.enable = true;
+      mailserver.enable = true;
     }
     (import ./minecraft.nix)
     (import ./ntm_space.nix)
