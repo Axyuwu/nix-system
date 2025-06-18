@@ -6,7 +6,7 @@
 }:
 let
   # already defined by the mailserver module
-  cfg = config.personal_mailserver;
+  cfg = config.mailserver;
 in
 {
   config = lib.mkIf cfg.enable {
