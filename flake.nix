@@ -4,10 +4,19 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    simple-nixos-mailserver = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    { nixpkgs, flake-utils, ... }:
+    {
+      nixpkgs,
+      flake-utils,
+      simple-nixos-mailserver,
+      ...
+    }:
     (flake-utils.lib.eachDefaultSystem (system: {
       formatter = (import nixpkgs { inherit system; }).nixfmt-rfc-style;
     }))
@@ -36,9 +45,9 @@
           modules = modules ++ [
             ./common
             ((import systems/features.nix).toModule features)
+            simple-nixos-mailserver.nixosModule
           ];
         }
       ) (import ./systems);
     };
-
 }

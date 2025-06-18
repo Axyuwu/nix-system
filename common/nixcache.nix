@@ -12,7 +12,6 @@ in
     enable = lib.mkEnableOption "Nix cache server";
   };
   config = lib.mkIf cfg.enable {
-
     services.nix-serve = {
       enable = true;
       secretKeyFile = "/var/nixcache-key.priv";
