@@ -20,6 +20,9 @@ in
         catchAll = [ "uwuaxy.net" ];
       };
       certificateScheme = "acme-nginx";
+      # Disable flawed STARTTLS functionality
+      enableImap = false;
+      enableSubmission = false;
     };
   };
 }
