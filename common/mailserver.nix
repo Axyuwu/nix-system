@@ -6,12 +6,11 @@
 }:
 let
   # already defined by the mailserver module
-  cfg = config.mailserver;
+  cfg = config.personal_mailserver;
 in
 {
   config = lib.mkIf cfg.enable {
     mailserver = {
-      enable = true;
       stateVersion = 2;
       fqdn = "${systemName}.uwuaxy.net";
       domains = [ "uwuaxy.net" ];
