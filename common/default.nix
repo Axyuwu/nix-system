@@ -14,6 +14,7 @@
     ./headless.nix
     ./nixcache.nix
     ./nix-settings.nix
+    ./mailserver.nix
   ];
 
   boot.loader.systemd-boot = {
