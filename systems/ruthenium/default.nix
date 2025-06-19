@@ -10,6 +10,7 @@
       hardware = {
         defaultPartitions.enable = true;
         cpuVendor = "amd";
+        kvm.enable = true;
       };
       boot.initrd.availableKernelModules = [
         "xhci_pci"

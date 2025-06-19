@@ -26,6 +26,9 @@ in
       ];
       default = "unknown";
     };
+    kvm = {
+      enable = options.mkEnableOption "kernel virtualization support";
+    };
   };
   config = lib.mkMerge [
     (lib.mkIf cfg.defaultPartitions.enable (
@@ -54,12 +57,24 @@ in
       hardware.enableRedistributableFirmware = true;
     }
     (lib.mkIf (cfg.cpuVendor == "amd") {
-      boot.kernelModules = [ "kvm-amd" ];
       hardware.cpu.amd.updateMicrocode = true;
     })
     (lib.mkIf (cfg.cpuVendor == "intel") {
-      boot.kernelModules = [ "kvm-intel" ];
       hardware.cpu.intel.updateMicrocode = true;
     })
+    (lib.mkIf cfg.kvm.enable (
+      let
+        vendor = cfg.cpuVendor;
+      in
+      {
+        assertions = [
+          {
+            assertion = vendor == "amd" || vendor == "intel";
+            message = "cpu vendors other than amd and intel don't support kvm";
+          }
+        ];
+        boot.kernelModules = [ "kvm-${vendor}" ];
+      }
+    ))
   ];
 }

@@ -10,6 +10,7 @@
       hardware = {
         defaultPartitions.enable = true;
         cpuVendor = "amd";
+        kvm.enable = true;
       };
       services.nginx.enable = true;
       services.nginx.virtualHosts."helium.uwuaxy.net" = {
