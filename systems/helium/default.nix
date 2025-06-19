@@ -11,6 +11,7 @@
         defaultPartitions.enable = true;
         cpuVendor = "amd";
         kvm.enable = true;
+        platform = "bareMetal";
       };
       services.nginx.enable = true;
       services.nginx.virtualHosts."helium.uwuaxy.net" = {

@@ -29,6 +29,13 @@ in
     kvm = {
       enable = options.mkEnableOption "kernel virtualization support";
     };
+    platform = options.mkOption {
+      description = "What this system is running on, either bare metal or a virtual machine";
+      type = types.enum [
+        "bareMetal"
+        "virtualMachine"
+      ];
+    };
   };
   config = lib.mkMerge [
     (lib.mkIf cfg.defaultPartitions.enable (
@@ -54,13 +61,13 @@ in
     {
       networking.useDHCP = lib.mkDefault true;
       nixpkgs.hostPlatform = systemPlatform;
-      hardware.enableRedistributableFirmware = true;
+      hardware.enableRedistributableFirmware = lib.mkDefault (cfg.platform == "bareMetal");
     }
     (lib.mkIf (cfg.cpuVendor == "amd") {
-      hardware.cpu.amd.updateMicrocode = true;
+      hardware.cpu.amd.updateMicrocode = lib.mkDefault cfg.enableRedistributableFirmware;
     })
     (lib.mkIf (cfg.cpuVendor == "intel") {
-      hardware.cpu.intel.updateMicrocode = true;
+      hardware.cpu.intel.updateMicrocode = lib.mkDefault cfg.enableRedistributableFirmware;
     })
     (lib.mkIf cfg.kvm.enable (
       let
@@ -68,6 +75,10 @@ in
       in
       {
         assertions = [
+          {
+            assertion = cfg.platform == "bareMetal";
+            message = "can only use kvm on bare metal";
+          }
           {
             assertion = vendor == "amd" || vendor == "intel";
             message = "cpu vendors other than amd and intel don't support kvm";
