@@ -14,6 +14,9 @@
       services.nginx.enable = true;
       services.nginx.virtualHosts."helium.uwuaxy.net" = {
         root = "/var/www/";
+        extraConfig = ''
+          autoindex on;
+        '';
       };
       boot.initrd.availableKernelModules = [
         "nvme"
