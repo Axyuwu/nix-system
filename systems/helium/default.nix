@@ -13,9 +13,7 @@
       };
       services.nginx.enable = true;
       services.nginx.virtualHosts."helium.uwuaxy.net" = {
-        locations."/" = {
-          root = "/var/www/";
-        };
+        root = "/var/www/";
       };
       boot.initrd.availableKernelModules = [
         "nvme"
