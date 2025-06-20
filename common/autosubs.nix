@@ -26,7 +26,14 @@
       for HOST in ${
         lib.strings.escapeShellArgs (
           lib.attrsets.mapAttrsToList (name: _system: name) (
-            lib.attrsets.filterAttrs (_name: system: system.features.nixcache) (import ../systems)
+            lib.attrsets.filterAttrs (
+              _name:
+              {
+                nixcache ? false,
+                ...
+              }:
+              nixcache
+            ) (import ../systems)
           )
         )
       }; do

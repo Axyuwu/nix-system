@@ -1,9 +1,7 @@
 {
   system = "x86_64-linux";
-  features = (import ../features.nix).mkFeatures {
-    headless = true;
-    nixcache = true;
-  };
+  headless = true;
+  nixcache = true;
   modules = [
     {
       system.stateVersion = "24.11";
@@ -20,9 +18,13 @@
         "usbhid"
         "sd-mod"
       ];
+    }
+    {
+      imports = [
+        ./minecraft.nix
+        ./ntm_space.nix
+      ];
       mailserver.enable = true;
     }
-    (import ./minecraft.nix)
-    (import ./ntm_space.nix)
   ];
 }

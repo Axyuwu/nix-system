@@ -1,9 +1,6 @@
 {
   system = "x86_64-linux";
-  features = (import ../features.nix).mkFeatures {
-    desktop = true;
-    nixcache = true;
-  };
+  nixcache = true;
   modules = [
     {
       system.stateVersion = "24.05";
@@ -12,6 +9,15 @@
         cpuVendor = "amd";
         kvm.enable = true;
       };
+      boot.initrd.availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "ahci"
+        "usbhid"
+      ];
+    }
+    {
+      desktop.enable = true;
       services.nginx.enable = true;
       services.nginx.virtualHosts."helium.uwuaxy.net" = {
         root = "/var/www/";
@@ -19,12 +25,6 @@
           autoindex on;
         '';
       };
-      boot.initrd.availableKernelModules = [
-        "nvme"
-        "xhci_pci"
-        "ahci"
-        "usbhid"
-      ];
     }
   ];
 }

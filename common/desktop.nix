@@ -4,10 +4,12 @@
   lib,
   ...
 }:
-
+let
+  cfg = config.desktop;
+in
 {
-  options.isDesktop = lib.mkEnableOption "Desktop related services";
-  config = lib.mkIf config.isDesktop {
+  options.desktop.enable = lib.mkEnableOption "desktop related services";
+  config = lib.mkIf cfg.enable {
     boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
     boot.kernelModules = [ "v4l2loopback" ];
     boot.extraModprobeConfig = ''

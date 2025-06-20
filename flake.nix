@@ -26,7 +26,8 @@
         {
           system,
           modules,
-          features,
+          headless ? false,
+          nixcache ? false,
         }:
         let
           originPkgs = import nixpkgs { inherit system; };
@@ -44,8 +45,27 @@
           inherit system;
           modules = modules ++ [
             ./common
-            ((import systems/features.nix).toModule features)
             simple-nixos-mailserver.nixosModule
+            (
+              if headless then
+                (
+                  { config, modulesPath, ... }:
+                  {
+                    imports = [ "${modulesPath}/profiles/headless.nix" ];
+                    config = {
+                      assertions = [
+                        (!config.desktop.enable)
+                      ];
+                      headless.enable = true;
+                    };
+                  }
+                )
+              else
+                { }
+            )
+            {
+              config.nixcache.enable = nixcache;
+            }
           ];
         }
       ) (import ./systems);
