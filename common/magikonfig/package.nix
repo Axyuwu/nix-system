@@ -44,10 +44,18 @@ let
       modules=()
 
       for path in /sys/bus/pci/devices/*; do
+          vendor=$(cat "$path/vendor")
+          device=$(cat "$path/device")
+
           if [[ -e "$path/driver/module" ]] \
               && grep -qE '(0x01|0x0C00|0x0c03).*' "$path/class" 
           then
               modules+=("$(basename "$(readlink -f "$path/driver/module")")")
+          fi
+
+          # Virtio scsi devices need to be explicitly discovered
+          if [[ "$vendor" == "0x1af4" && ("$device" == "0x1004" || "$device" == "0x1048") ]]; then
+              modules+=("virtio_scsi")
           fi
       done
 
@@ -58,6 +66,12 @@ let
               if [[ $class == "08" || ( $class == "03" && $protocol == "01" ) ]]; then
                   modules+=("$(basename "$(readlink -f "$path/driver/module")")")
               fi
+          fi
+      done
+
+      for path in /sys/class/block/*/device /sys/class/mmc_host/*/device; do
+          if [[ -e "$path/driver/module" ]]; then
+              modules+=($(basename "$(readlink -f "$path/driver/module")"))
           fi
       done
 
