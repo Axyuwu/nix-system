@@ -11,7 +11,6 @@
         defaultPartitions.enable = true;
         cpuVendor = "amd";
         kvm.enable = true;
-        platform = "bareMetal";
       };
       boot.initrd.availableKernelModules = [
         "xhci_pci"

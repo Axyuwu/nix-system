@@ -10,7 +10,6 @@
         defaultPartitions.enable = true;
         cpuVendor = "intel";
         kvm.enable = true;
-        platform = "bareMetal";
       };
       boot.initrd.availableKernelModules = [
         "vmd"

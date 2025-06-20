@@ -2,6 +2,7 @@
   lib,
   config,
   systemPlatform,
+  modulesPath,
   ...
 }:
 let
@@ -22,19 +23,22 @@ in
       type = types.enum [
         "amd"
         "intel"
-        "unknown"
+        "other-unknown"
       ];
-      default = "unknown";
+      default = "other-unknown";
     };
     kvm = {
       enable = options.mkEnableOption "kernel virtualization support";
     };
-    platform = options.mkOption {
-      description = "What this system is running on, either bare metal or a virtual machine";
+    virtualization = options.mkOption {
+      description = "What system this is running on";
       type = types.enum [
-        "bareMetal"
-        "virtualMachine"
+        "none"
+        "qemu"
+        "systemd-nspawn"
+        "other-unknown"
       ];
+      default = "none";
     };
   };
   config = lib.mkMerge [
@@ -61,8 +65,34 @@ in
     {
       networking.useDHCP = lib.mkDefault true;
       nixpkgs.hostPlatform = systemPlatform;
-      hardware.enableRedistributableFirmware = lib.mkDefault (cfg.platform == "bareMetal");
     }
+    (lib.mkMerge (
+      lib.attrsets.mapAttrsToList (name: value: lib.mkIf (cfg.virtualization == name) value) {
+        "none" = {
+          hardware.enableRedistributableFirmware = lib.mkDefault true;
+        };
+        "qemu" = {
+          boot.initrd.availableKernelModules = [
+            "virtio_net"
+            "virtio_pci"
+            "virtio_mmio"
+            "virtio_blk"
+            "virtio_scsi"
+            "9p"
+            "9pnet_virtio"
+          ];
+          boot.initrd.kernelModules = [
+            "virtio_balloon"
+            "virtio_console"
+            "virtio_rng"
+            "virtio_gpu"
+          ];
+        };
+        "systemd-nspawn" = {
+          boot.isContainer = true;
+        };
+      }
+    ))
     (lib.mkIf (cfg.cpuVendor == "amd") {
       hardware.cpu.amd.updateMicrocode = lib.mkDefault cfg.enableRedistributableFirmware;
     })
@@ -75,10 +105,6 @@ in
       in
       {
         assertions = [
-          {
-            assertion = cfg.platform == "bareMetal";
-            message = "can only use kvm on bare metal";
-          }
           {
             assertion = vendor == "amd" || vendor == "intel";
             message = "cpu vendors other than amd and intel don't support kvm";
