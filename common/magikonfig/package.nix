@@ -71,7 +71,7 @@ let
 
       for path in /sys/class/block/*/device /sys/class/mmc_host/*/device; do
           if [[ -e "$path/driver/module" ]]; then
-              modules+=($(basename "$(readlink -f "$path/driver/module")"))
+              modules+=("$(basename "$(readlink -f "$path/driver/module")")")
           fi
       done
 
