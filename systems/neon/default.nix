@@ -6,6 +6,7 @@
       hardware = {
         defaultPartitions.enable = true;
         cpuVendor = "intel";
+        virtualization = "none";
         kvm.enable = true;
       };
       boot.initrd.availableKernelModules = [

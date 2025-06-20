@@ -7,6 +7,7 @@
       hardware = {
         defaultPartitions.enable = true;
         cpuVendor = "amd";
+        virtualization = "none";
         kvm.enable = true;
       };
       boot.initrd.availableKernelModules = [

@@ -2,7 +2,6 @@
   lib,
   config,
   systemPlatform,
-  modulesPath,
   ...
 }:
 let
@@ -31,7 +30,7 @@ in
       enable = options.mkEnableOption "kernel virtualization support";
     };
     virtualization = options.mkOption {
-      description = "What system this is running on";
+      description = "What virtualization platform this is running on, if any";
       type = types.enum [
         "none"
         "qemu"
