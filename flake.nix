@@ -54,7 +54,10 @@
                     imports = [ "${modulesPath}/profiles/headless.nix" ];
                     config = {
                       assertions = [
-                        (!config.desktop.enable)
+                        {
+                          assertion = !config.desktop.enable;
+                          message = "Enabling headless is entirely incompatible with desktop usage";
+                        }
                       ];
                       headless.enable = true;
                     };
