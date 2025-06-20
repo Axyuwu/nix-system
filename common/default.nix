@@ -15,6 +15,7 @@
     ./nixcache.nix
     ./nix-settings.nix
     ./mailserver.nix
+    ./magikonfig.nix
   ];
 
   boot.loader.systemd-boot = {
