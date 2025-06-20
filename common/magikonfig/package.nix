@@ -1,5 +1,6 @@
-{ pkgs, config, ... }:
+pkgs:
 let
+  lib = pkgs.lib;
   magikonfig-gen-hardware = pkgs.writeShellApplication {
     name = "magikonfig-gen-hardware";
     runtimeInputs = with pkgs; [
@@ -9,8 +10,6 @@ let
       gnugrep
     ];
     text = ''
-      set -ueo pipefail
-
       virt=$(case $(systemd-detect-virt || true) in
           "none")
               echo -n "none"
@@ -79,7 +78,7 @@ let
         system = "$system";
         modules = [
           {
-            system.stateVersion = "${config.system.nixos.release}";
+            system.stateVersion = "${builtins.substring 0 5 lib.version}";
             hardware = {
               defaultPartitions.enable = true;
               cpuVendor = "$cpu_vendor"
@@ -94,7 +93,41 @@ let
       EOF
     '';
   };
+  magikonfig-partition = pkgs.writeShellApplication {
+    name = "magikonfig-partition";
+    runtimeInputs = with pkgs; [
+      coreutils-full
+    ];
+    text = ''
+      if [[ $# != 1 ]]; then
+        >&2 echo "please provide only one argument, the path to the device that should be partitioned"
+        exit 1
+      fi
+
+      if [[ -e /sys/firmware/efi ]]; then
+        echo "uefi"
+      else
+        echo "bios"
+      fi
+    '';
+  };
+  magikonfig = pkgs.writeShellApplication {
+    name = "magikonfig";
+    runtimeInputs = [
+      magikonfig-gen-hardware
+      magikonfig-partition
+    ];
+    text = ''
+      magikonfig-gen-hardware
+      magikonfig-partition ""
+    '';
+  };
 in
-{
-  environment.systemPackages = [ magikonfig-gen-hardware ];
+pkgs.symlinkJoin {
+  name = "magikonfig";
+  paths = [
+    magikonfig-gen-hardware
+    magikonfig-partition
+    magikonfig
+  ];
 }

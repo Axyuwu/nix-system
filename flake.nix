@@ -72,5 +72,12 @@
           ];
         }
       ) (import ./systems);
-    };
+    }
+    // (flake-utils.lib.eachDefaultSystem (system: {
+      packages.magikonfig =
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        import ./common/magikonfig/package.nix pkgs;
+    }));
 }
