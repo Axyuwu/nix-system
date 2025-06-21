@@ -175,7 +175,7 @@ let
       fi
 
       NIX_CONFIG=$'extra-experimental-features = nix-command flakes\ntarball-ttl = 0' \
-      nixos-install --flake "github:Axyuwu/nix-system#$1" --no-root-password 
+      nixos-install --flake "github:Axyuwu/nix-system#$1" --no-root-password --no-channel-copy
     '';
   };
   magikonfig = pkgs.writeShellApplication {
