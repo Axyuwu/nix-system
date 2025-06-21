@@ -29,7 +29,6 @@ let
     BODY=$(printf '{
       "comment": "Dynamic dns address for host ${systemName}",
       "content": "%s",
-      "name": "${systemName}.uwuaxy.net",
       "proxied": false,
       "ttl": 1,
       "type": "AAAA"
