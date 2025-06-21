@@ -99,9 +99,9 @@ let
       fi)
 
       grub_device=$(if [[ -e /sys/firmware/efi ]]; then
-          echo "$1"
-      else
           echo "nodev"
+      else
+          echo "$1"
       fi)
 
       modules_out=$(for module in $modules_flat; do printf '\n       "%s"' "$module"; done)
