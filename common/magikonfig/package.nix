@@ -167,6 +167,7 @@ let
       )
 
       sleep 0.2 # hack, this might help
+      mkdir -p /mnt
       mount /dev/disk/by-label/nixos /mnt
 
       if [[ -e /dev/disk/by-label/boot ]]; then
