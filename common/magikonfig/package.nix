@@ -83,7 +83,7 @@ let
 
       system=$(nix eval --impure --raw --expr "builtins.currentSystem")
 
-      boot_firmware=$(if [[ "$virt" == "none" ]]; then
+      boot_firmware=$(if [[ "$virt" != "systemd-nspawn" ]]; then
           if [[ -e /sys/firmware/efi ]]; then
               echo "uefi"
           else
@@ -239,6 +239,7 @@ let
           read -r
           echo '{'
           echo "  $machine_name = import ./$machine_name;"
+          cat
       ) > ./systems/default.nix
 
       git add .
