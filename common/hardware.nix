@@ -24,7 +24,6 @@ in
         "intel"
         "other-unknown"
       ];
-      default = "other-unknown";
     };
     kvm = {
       enable = options.mkEnableOption "kernel virtualization support";
@@ -37,7 +36,14 @@ in
         "systemd-nspawn"
         "other-unknown"
       ];
-      default = "none";
+    };
+    bootFirmware = options.mkOption {
+      description = "What boot firmware this system uses";
+      type = types.enum [
+        "bios"
+        "uefi"
+        "none-container"
+      ];
     };
   };
   config = lib.mkMerge [
@@ -47,7 +53,7 @@ in
           device = "/dev/disk/by-label/nixos";
           fsType = cfg.defaultPartitions.rootFsType;
         };
-        fileSystems."/boot" = {
+        fileSystems."/boot" = lib.mkIf (cfg.bootFirmware == "uefi") {
           device = "/dev/disk/by-label/boot";
           fsType = "vfat";
           options = [

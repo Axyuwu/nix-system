@@ -8,6 +8,7 @@
         cpuVendor = "intel";
         virtualization = "none";
         kvm.enable = true;
+        bootFirmware = "uefi";
       };
       boot.initrd.availableKernelModules = [
         "vmd"

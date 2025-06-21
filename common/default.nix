@@ -1,6 +1,7 @@
 {
   systemName,
   lib,
+  config,
   ...
 }:
 
@@ -18,13 +19,16 @@
     ./magikonfig
   ];
 
-  boot.loader.systemd-boot = {
+  boot.loader.systemd-boot = lib.mkIf (config.hardware.bootFirmware == "uefi") {
     enable = true;
     configurationLimit = 16;
     editor = false;
     graceful = true;
   };
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.canTouchEfiVariables = lib.mkIf (config.hardware.bootFirmware == "uefi") true;
+  boot.loader.grub = lib.mkIf (config.hardware.bootFirmware == "bios") {
+    enable = true;
+  };
   boot.loader.timeout = 2;
   boot.supportedFilesystems = [ "ntfs" ];
 

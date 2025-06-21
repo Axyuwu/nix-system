@@ -9,6 +9,7 @@
         cpuVendor = "amd";
         virtualization = "none";
         kvm.enable = true;
+        bootFirmware = "uefi";
       };
       boot.initrd.availableKernelModules = [
         "nvme"

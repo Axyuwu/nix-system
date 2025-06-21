@@ -10,6 +10,7 @@
         cpuVendor = "amd";
         virtualization = "none";
         kvm.enable = true;
+        bootFirmware = "uefi";
       };
       boot.initrd.availableKernelModules = [
         "xhci_pci"
