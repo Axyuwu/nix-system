@@ -207,7 +207,7 @@ let
 
       cd "$(mktemp -d)"
 
-      git clone https://github.com/Axyuwu/nix-system.nix ./
+      git clone git@github.com:Axyuwu/nix-system.git ./
 
       mkdir "./systems/$machine_name"
 
@@ -242,6 +242,9 @@ let
       ) > ./systems/default.nix
 
       git add .
+
+      git config user.name "Axy"
+      git config user.email "gilliardmarthey.axel@gmail.com"
 
       git commit -am "Automatic initial commit for system $machine_name"
 
