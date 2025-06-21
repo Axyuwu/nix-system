@@ -10,6 +10,7 @@
         kvm.enable = true;
         bootFirmware = "uefi";
       };
+      boot.loader.grub.device = "nodev";
       boot.initrd.availableKernelModules = [
         "vmd"
         "xhci_pci"

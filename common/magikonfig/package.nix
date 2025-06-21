@@ -10,6 +10,11 @@ let
       gnugrep
     ];
     text = ''
+      if [[ $# != 1 ]]; then
+          >&2 echo "please provide the device as an argument"
+          exit 1
+      fi
+
       virt=$(case $(systemd-detect-virt || true) in
           none)
               echo "none"
@@ -93,6 +98,12 @@ let
           echo "none-container"
       fi)
 
+      grub_device=$(if [[ -e /sys/firmware/efi ]]; then
+          echo "$1"
+      else
+          echo "nodev"
+      fi)
+
       modules_out=$(for module in $modules_flat; do printf '\n       "%s"' "$module"; done)
 
       cat <<EOF
@@ -108,6 +119,7 @@ let
               kvm.enable = $kvm_enable;
               bootFirmware = "$boot_firmware";
             };
+            boot.loader.grub.device = "$grub_device";
             boot.initrd.availableKernelModules = [$modules_out
             ];
           }
@@ -211,7 +223,7 @@ let
 
       mkdir "./systems/$machine_name"
 
-      magikonfig-gen-hardware > "./systems/$machine_name/default.nix"
+      magikonfig-gen-hardware "$1" > "./systems/$machine_name/default.nix"
 
       while true; do
           vim "./systems/$machine_name/default.nix"
