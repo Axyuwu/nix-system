@@ -103,10 +103,10 @@ let
             system.stateVersion = "${builtins.substring 0 5 lib.version}";
             hardware = {
               defaultPartitions.enable = true;
-              cpuVendor = "$cpu_vendor"
+              cpuVendor = "$cpu_vendor";
               virtualization = "$virt";
               kvm.enable = $kvm_enable;
-              bootFirmware = "$boot_firmware"
+              bootFirmware = "$boot_firmware";
             };
             boot.initrd.availableKernelModules = [$modules_out
             ];
@@ -215,7 +215,7 @@ let
 
       while true; do
           vim "./systems/$machine_name/default.nix"
-          read -r -p "Done? (y)es (e)dit (q)uit" answer
+          read -r -p "Done? (y)es (e)dit (q)uit " answer
           case "$answer" in
               y|yes)
                   break
