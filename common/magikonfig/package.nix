@@ -154,6 +154,7 @@ let
           (if read -r boot; then mkfs.fat -F 32 -n boot "/dev/$boot"; fi)
       )
 
+      sleep 0.2 # hack, this might help
       mount /dev/disk/by-label/nixos /mnt
 
       if [[ -e /dev/disk/by-label/boot ]]; then
