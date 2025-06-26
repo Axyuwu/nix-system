@@ -22,12 +22,10 @@ let
     IP=$(
       ${pkgs.iproute2}/bin/ip -o -6 addr show up primary scope global \
       | head -n 1 \
-      | while read -r num dev fam addr rem; do 
-          echo ''${addr%/*}; \
-        done
-      )
-
-    echo "$IP"
+      | (
+        read -r num dev fam addr rem
+        echo ''${addr%/*}
+      ))
 
     BODY=$(printf '{
       "comment": "Dynamic dns address for host ${systemName}",
