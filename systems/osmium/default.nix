@@ -34,7 +34,7 @@
             ];
           };
         };
-        networking.networkmanager.enable = lib.mkForce true;
+        networking.networkmanager.enable = lib.mkForce false;
       }
     )
   ];
