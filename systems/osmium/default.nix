@@ -33,8 +33,8 @@
               { Gateway = "fe80::1"; }
             ];
           };
-          networking.networkmanager.enable = lib.mkForce true;
         };
+        networking.networkmanager.enable = lib.mkForce true;
       }
     )
   ];
