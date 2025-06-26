@@ -7,6 +7,7 @@ let
   zone_id = "eab55627e02f669df6da275fce15bcc5";
   base_url = "https://api.cloudflare.com/client/v4/zones/${zone_id}/dns_records";
   dyndns_script = pkgs.writeShellScriptBin "cfdyndns" ''
+    shopt -s inherit_errexit
     set -e -u -o pipefail
 
     RECORD=$(${pkgs.curl}/bin/curl -s -S -G \
@@ -25,6 +26,8 @@ let
           echo ''${addr%/*}; \
         done
       )
+
+    echo "$IP"
 
     BODY=$(printf '{
       "comment": "Dynamic dns address for host ${systemName}",
