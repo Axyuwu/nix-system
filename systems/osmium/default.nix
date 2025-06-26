@@ -35,6 +35,7 @@
           };
         };
         networking.networkmanager.enable = lib.mkForce false;
+        networking.useDHCP = false;
       }
     )
   ];
