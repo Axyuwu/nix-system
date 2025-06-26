@@ -19,12 +19,23 @@
         "virtio_scsi"
         "xhci_pci"
       ];
-      networking.interfaces.enp1s0.ipv6.addresses = [
-        {
-          address = "2a01:4f8:c17:1517::1";
-          prefixLength = 64;
-        }
-      ];
     }
+    (
+      { lib, ... }:
+      {
+        systemd.network = {
+          enable = true;
+          networks."30-wan" = {
+            matchConfig.Name = "enp1s0";
+            networkConfig.DHCP = "ipv4";
+            address = [ "2a01:4f8:c17:1517::/64" ];
+            routes = [
+              { Gateway = "fe80::1"; }
+            ];
+          };
+          networking.networkmanager.enable = lib.mkForce true;
+        };
+      }
+    )
   ];
 }
