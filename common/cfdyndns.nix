@@ -65,7 +65,7 @@ in
     '';
     after = [ "network-online.target" ];
     requires = [ "network-online.target" ];
-    wantedBy = [ "postinit.target" ];
+    wantedBy = [ "default.target" ];
     serviceConfig = {
       User = "cfdyndns";
       Group = "cfdyndns";

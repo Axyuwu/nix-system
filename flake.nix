@@ -30,14 +30,9 @@
           nixcache ? false,
         }:
         let
-          originPkgs = import nixpkgs { inherit system; };
-          pkgs = originPkgs.applyPatches {
-            name = "nixpkgs-patched";
-            src = nixpkgs;
-            patches = import ./patches;
-          };
+          pkgs = import nixpkgs { inherit system; };
         in
-        import (pkgs + "/nixos/lib/eval-config.nix") {
+        import (nixpkgs + "/nixos/lib/eval-config.nix") {
           specialArgs = {
             systemName = name;
             systemPlatform = system;

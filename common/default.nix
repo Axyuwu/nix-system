@@ -11,7 +11,6 @@
     ./autosubs.nix
     ./hardware.nix
     ./desktop.nix
-    ./postinit.nix
     ./headless.nix
     ./nixcache.nix
     ./nix-settings.nix
