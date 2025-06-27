@@ -27,7 +27,6 @@
         ./minecraft.nix
         ./ntm_space.nix
       ];
-      mailserver.enable = true;
     }
   ];
 }
