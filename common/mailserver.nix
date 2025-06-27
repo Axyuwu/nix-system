@@ -11,7 +11,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     mailserver = {
-      stateVersion = 2;
+      stateVersion = 3;
       fqdn = "${systemName}.uwuaxy.net";
       domains = [ "uwuaxy.net" ];
       loginAccounts."axy@uwuaxy.net" = {
