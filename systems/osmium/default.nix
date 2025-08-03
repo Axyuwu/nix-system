@@ -21,6 +21,31 @@
       ];
     }
     (
+      { pkgs, ... }:
+      {
+        environment.systemPackages = [ pkgs.rclone ];
+        envrionment.etc."rclone-mng.conf".text = ''
+          [storage-osmium-1]
+          type = sftp
+          host = u481158.your-storagebox.de
+          user = u481158
+          port = 23
+          key_file = /etc/ssh/ssh_host_rsa_key
+        '';
+        fileSystems."/rclone/storage-osmium-1" = {
+          device = "storage-osmium-1";
+          fsType = "rclone";
+          options = [
+            "nodev"
+            "nofail"
+            "allow_other"
+            "args2env"
+            "config=/etc/rclone-mnt.conf"
+          ];
+        };
+      }
+    )
+    (
       { lib, ... }:
       {
         systemd.network = {
