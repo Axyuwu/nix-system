@@ -37,7 +37,7 @@
           )
         )
       }; do
-        if ${pkgs.iputils}/bin/ping -c 1 -W 0.05 "$HOST.uwuaxy.net"; then
+        if ${pkgs.iputils}/bin/ping -c 1 -W 0.02 "$HOST.uwuaxy.net"; then
           CONF="$CONF https://$HOST.uwuaxy.net/nixcache/"
         fi
       done
