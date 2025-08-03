@@ -48,21 +48,20 @@ in
   };
   config = lib.mkMerge [
     (lib.mkIf cfg.defaultPartitions.enable (
-      lib.mkDefault {
-        fileSystems."/" = {
+      {
+        fileSystems."/" = lib.mkDefault {
           device = "/dev/disk/by-label/nixos";
           fsType = cfg.defaultPartitions.rootFsType;
         };
-        fileSystems."/boot" = lib.mkIf (cfg.bootFirmware == "uefi") {
+        fileSystems."/boot" = lib.mkIf (cfg.bootFirmware == "uefi") (lib.mkDefault {
           device = "/dev/disk/by-label/boot";
           fsType = "vfat";
           options = [
             "fmask=0077"
             "dmask=0077"
           ];
-        };
-
-        swapDevices = [
+        });
+        swapDevices = lib.mkDefault [
           { device = "/dev/disk/by-label/swap"; }
         ];
       }
