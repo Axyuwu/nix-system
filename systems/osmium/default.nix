@@ -20,21 +20,18 @@
         "xhci_pci"
       ];
     }
-    (
-      { pkgs, ... }:
-      {
-        fileSystems."/sync/osmium-storage-1" = {
-          device = "u481158@u481158.your-storagebox.de:";
-          fsType = "sshfs";
-          options = [
-            "nodev"
-            "noatime"
-            "allow_other"
-            "IdentityFile=/etc/ssh/ssh_host_rsa_key"
-          ];
-        };
-      }
-    )
+    {
+      fileSystems."/sync/osmium-storage-1" = {
+        device = "u481158@u481158.your-storagebox.de:";
+        fsType = "sshfs";
+        options = [
+          "nodev"
+          "noatime"
+          "allow_other"
+          "IdentityFile=/etc/ssh/ssh_host_rsa_key"
+        ];
+      };
+    }
     (
       { lib, ... }:
       {
