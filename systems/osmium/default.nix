@@ -36,10 +36,13 @@
           device = "storage-osmium-1";
           fsType = "rclone";
           options = [
+            "rw"
+            "noauto"
             "nodev"
             "nofail"
+            "_netdev"
+            "x-systemd.automount"
             "allow_other"
-            "x-systemd.mount-timeout=30"
             "args2env"
             "config=/etc/rclone-mnt.conf"
           ];
