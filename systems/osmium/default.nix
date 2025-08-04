@@ -39,6 +39,7 @@
             "nodev"
             "nofail"
             "allow_other"
+            "x-systemd.mount-timeout=30"
             "args2env"
             "config=/etc/rclone-mnt.conf"
           ];
