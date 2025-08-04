@@ -34,7 +34,7 @@
         '';
         systemd.mounts = [
           {
-            name = "storage-osmium-1";
+            name = "storage-osmium-1.mount";
             description = "Mount for /rclone/storage-osmium-1";
             type = "rclone";
             options = [
@@ -48,7 +48,7 @@
               "args2env"
               "config=/etc/rclone-mnt.conf"
             ];
-            mount = {
+            mountConfig = {
               What = "storage-osmium-1:";
               Where = "/rclone/storage-osmium-1";
             };
