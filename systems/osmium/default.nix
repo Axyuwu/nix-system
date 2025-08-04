@@ -36,8 +36,7 @@
           description = "Rclone mount of storage-osmium-1";
           serviceConfig = {
             Type = "simple";
-            ExecStart = "${pkgs.rclone}/bin/rclone mount --config=/etc/rclone-mnt.conf \
-            storage-osmium-1: /rclone/storage-osmium-1";
+            ExecStart = "${pkgs.rclone}/bin/rclone mount storage-osmium-1: /rclone/storage-osmium-1 --config=/etc/rclone-mnt.conf";
           };
           after = [ "network.target" ];
           wantedBy = ["multi-user.target"];
