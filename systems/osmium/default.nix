@@ -23,8 +23,8 @@
     (
       { pkgs, ... }:
       {
-        fileSystems."/" = {
-          device = "u481158@u481158.your-storagebox.de";
+        fileSystems."/sync/osmium-storage-1" = {
+          device = "u481158@u481158.your-storagebox.de:";
           fsType = "sshfs";
           options = [
             "nodev"
