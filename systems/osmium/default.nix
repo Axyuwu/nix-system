@@ -32,25 +32,28 @@
           port = 23
           key_file = /etc/ssh/ssh_host_rsa_key
         '';
-        systemd.mounts."storage-osmium-1" = {
-          description = "Mount for /rclone/storage-osmium-1";
-          type = "rclone";
-          options =  [
-            "rw"
-            "noauto"
-            "nodev"
-            "nofail"
-            "_netdev"
-            "x-systemd.automount"
-            "allow_other"
-            "args2env"
-            "config=/etc/rclone-mnt.conf"
-          ];
-          mount = {
-            What = "storage-osmium-1:";
-            Where = "/rclone/storage-osmium-1";
-          };
-        };
+        systemd.mounts = [
+          {
+            name = "storage-osmium-1";
+            description = "Mount for /rclone/storage-osmium-1";
+            type = "rclone";
+            options = [
+              "rw"
+              "noauto"
+              "nodev"
+              "nofail"
+              "_netdev"
+              "x-systemd.automount"
+              "allow_other"
+              "args2env"
+              "config=/etc/rclone-mnt.conf"
+            ];
+            mount = {
+              What = "storage-osmium-1:";
+              Where = "/rclone/storage-osmium-1";
+            };
+          }
+        ];
       }
     )
     (
