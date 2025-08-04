@@ -28,7 +28,11 @@
           "nodev"
           "noatime"
           "allow_other"
+          "_netdev"
           "IdentityFile=/etc/ssh/ssh_host_rsa_key"
+          "reconnect"
+          "ServerAliveInterval=15"
+          "Port=23"
         ];
       };
     }
