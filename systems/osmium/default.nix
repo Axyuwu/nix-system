@@ -23,23 +23,15 @@
     (
       { pkgs, ... }:
       {
-        environment.systemPackages = [ pkgs.rclone ];
-        environment.etc."rclone-mnt.conf".text = ''
-          [storage-osmium-1]
-          type = sftp
-          host = u481158.your-storagebox.de
-          user = u481158
-          port = 23
-          key_file = /etc/ssh/ssh_host_rsa_key
-        '';
-        systemd.services."rclone-storage-osmium-1" = {
-          description = "Rclone mount of storage-osmium-1";
-          serviceConfig = {
-            Type = "simple";
-            ExecStart = "${pkgs.rclone}/bin/rclone mount storage-osmium-1: /rclone/storage-osmium-1 --config=/etc/rclone-mnt.conf";
-          };
-          after = [ "network.target" ];
-          wantedBy = ["multi-user.target"];
+        fileSystems."/" = {
+          device = "u481158@u481158.your-storagebox.de";
+          fsType = "sshfs";
+          options = [
+            "nodev"
+            "noatime"
+            "allow_other"
+            "IdentityFile=/etc/ssh/ssh_host_rsa_key"
+          ];
         };
       }
     )
