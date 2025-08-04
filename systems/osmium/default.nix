@@ -45,6 +45,7 @@
             "allow_other"
             "args2env"
             "config=/etc/rclone-mnt.conf"
+            "vv"
           ];
         };
       }
