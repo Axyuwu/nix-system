@@ -48,10 +48,8 @@
               "args2env"
               "config=/etc/rclone-mnt.conf"
             ];
-            mountConfig = {
-              What = "storage-osmium-1:";
-              Where = "/rclone/storage-osmium-1";
-            };
+            what = "storage-osmium-1:";
+            where = "/rclone/storage-osmium-1";
           }
         ];
       }
