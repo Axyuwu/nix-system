@@ -13,11 +13,20 @@ in
     mailserver = {
       stateVersion = 3;
       fqdn = "${systemName}.uwuaxy.net";
-      domains = [ "uwuaxy.net" ];
+      domains = [
+        "uwuaxy.net"
+        "mail.uwuaxy.net"
+      ];
       loginAccounts."axy@uwuaxy.net" = {
         hashedPassword = "$2b$05$cKW9J60CENZUjbpFLXhhkejC/o60KxmItMpO2mslCv5d1Pu8zyRzq";
-        aliases = [ "@uwuaxy.net" ];
-        catchAll = [ "uwuaxy.net" ];
+        aliases = [
+          "@uwuaxy.net"
+          "@mail.uwuaxy.net"
+        ];
+        catchAll = [
+          "uwuaxy.net"
+          "mail.uwuaxy.net"
+        ];
       };
       certificateScheme = "acme-nginx";
     };

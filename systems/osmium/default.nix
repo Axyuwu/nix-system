@@ -19,6 +19,7 @@
         "virtio_scsi"
         "xhci_pci"
       ];
+      mailserver.enable = true;
     }
     {
       fileSystems."/sync/osmium-storage-1" = {
