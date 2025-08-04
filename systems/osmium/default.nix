@@ -32,20 +32,15 @@
           port = 23
           key_file = /etc/ssh/ssh_host_rsa_key
         '';
-       fileSystems."/rclone/storage-osmium-1" = {
-          device = "storage-osmium-1:";
-          fsType = "rclone";
-          options = [
-            "rw"
-            "noauto"
-            "nodev"
-            "nofail"
-            "_netdev"
-            "x-systemd.automount"
-            "allow_other"
-            "config=/etc/rclone-mnt.conf"
-            "vv"
-          ];
+        systemd.services."rclone-storage-osmium-1" = {
+          description = "Rclone mount of storage-osmium-1";
+          serviceConfig = {
+            Type = "simple";
+            ExecStart = "${pkgs.rclone}/bin/rclone mount --config=/etc/rclone-mnt.conf \
+            storage-osmium-1: /rclone/storage-osmium-1";
+          };
+          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
         };
       }
     )
