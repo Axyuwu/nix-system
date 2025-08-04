@@ -24,7 +24,7 @@
       { pkgs, ... }:
       {
         environment.systemPackages = [ pkgs.rclone ];
-        environment.etc."rclone-mng.conf".text = ''
+        environment.etc."rclone-mnt.conf".text = ''
           [storage-osmium-1]
           type = sftp
           host = u481158.your-storagebox.de
