@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  systemName,
   ...
 }:
 {
@@ -27,12 +28,12 @@
         lib.strings.escapeShellArgs (
           lib.attrsets.mapAttrsToList (name: _system: name) (
             lib.attrsets.filterAttrs (
-              _name:
+              name:
               {
                 nixcache ? false,
                 ...
               }:
-              nixcache
+              nixcache && name != systemName
             ) (import ../systems)
           )
         )
