@@ -15,6 +15,7 @@
       '';
     };
     gitweb = {
+      projectroot = "/var/lib/gitolite";
       extraConfig = ''$projects_list = "/var/lib/gitolite/projects.list"'';
     };
     nginx =
