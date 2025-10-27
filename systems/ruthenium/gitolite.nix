@@ -14,14 +14,23 @@
         $RC{ROLES}{RELEASE_MANAGERS} = 1;
       '';
     };
-    nginx = {
-      enable = true;
-      gitweb = {
+    nginx =
+      let
+        vhost = "git.uwuaxy.net";
+      in
+      {
+        virtualHosts.${vhost} = {
+
+          addSSL = true;
+          enableACME = true;
+        };
         enable = true;
-        group = config.services.gitolite.group;
-        virtualHost = "git.uwuaxy.net";
-        location = "";
+        gitweb = {
+          enable = true;
+          group = config.services.gitolite.group;
+          virtualHost = vhost;
+          location = "";
+        };
       };
-    };
   };
 }

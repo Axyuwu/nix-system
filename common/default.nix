@@ -49,6 +49,8 @@
   };
   services.nginx = {
     recommendedProxySettings = lib.mkDefault true;
+    recommendedTlsSettings = lib.mkDefault true;
+    recommendedOptimisation = lib.mkDefault true;
   };
 
   time.timeZone = "Europe/Paris";
