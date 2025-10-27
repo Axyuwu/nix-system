@@ -8,6 +8,7 @@
       $RC{ROLES}{MANAGERS} = 1;
       $RC{ROLES}{RELEASE_MANAGERS} = 1;
       $RC{ROLES}{creators} = 1;
+
     '';
   };
 }
