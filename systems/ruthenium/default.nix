@@ -26,6 +26,8 @@
       imports = [
         ./minecraft.nix
         ./ntm_space.nix
+        ./ft.nix
+        ./gitolite.nix
       ];
     }
   ];
