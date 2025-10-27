@@ -5,7 +5,9 @@
     user = "git";
     extraGitoliteRc = ''
       $RC{UMASK} = 0027;
-      $RC{ROLES}{MANAGERS} = ();
+      $RC{ROLES}{MANAGERS} = 1;
+      $RC{ROLES}{RELEASE_MANAGERS} = 1;
+      $RC{ROLES}{creators} = 1;
     '';
   };
 }
