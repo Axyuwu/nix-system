@@ -35,7 +35,6 @@ in
     users.users.axy.extraGroups = [ "adbusers" ];
 
     services.udev.packages = with pkgs; [
-      android-udev-rules
       steam-devices-udev-rules
     ];
 
