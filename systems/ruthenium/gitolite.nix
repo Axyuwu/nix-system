@@ -14,13 +14,15 @@
         $RC{ROLES}{RELEASE_MANAGERS} = 1;
       '';
     };
+    gitweb = {
+      projectroot = "/var/lib/gitolite";
+    };
     nginx =
       let
         vhost = "git.uwuaxy.net";
       in
       {
         virtualHosts.${vhost} = {
-
           forceSSL = true;
           enableACME = true;
         };
