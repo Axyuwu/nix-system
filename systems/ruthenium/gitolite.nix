@@ -21,7 +21,7 @@
       {
         virtualHosts.${vhost} = {
 
-          addSSL = true;
+          forceSSL = true;
           enableACME = true;
         };
         enable = true;

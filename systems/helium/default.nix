@@ -23,7 +23,7 @@
       desktop.enable = true;
       services.nginx.enable = true;
       services.nginx.virtualHosts."helium.uwuaxy.net" = {
-        addSSL = true;
+        forceSSL = true;
         enableACME = true;
         root = "/var/www/";
         extraConfig = ''
