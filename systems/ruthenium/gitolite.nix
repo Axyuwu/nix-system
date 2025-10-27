@@ -19,6 +19,8 @@
       gitweb = {
         enable = true;
         group = config.services.gitolite.group;
+        virtualHost = "git.uwuaxy.net";
+        location = "";
       };
     };
   };
