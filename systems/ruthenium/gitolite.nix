@@ -14,6 +14,8 @@
         $RC{ROLES}{RELEASE_MANAGERS} = 1;
         $RC{ROLES}{OWNERS} = 1;
         $RC{OWNER_ROLENAME} = "OWNERS";
+        push( @{$RC{ENABLE}}, 'D' ); 
+        push( @{$RC{ENABLE}}, 'set-default-roles' ); 
       '';
     };
     gitweb = {
