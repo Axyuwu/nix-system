@@ -12,6 +12,8 @@
         $RC{UMASK} = 0027;
         $RC{ROLES}{MANAGERS} = 1;
         $RC{ROLES}{RELEASE_MANAGERS} = 1;
+        $RC{ROLES}{OWNERS} = 1;
+        $RC{OWNER_ROLENAME} = "OWNERS";
       '';
     };
     gitweb = {
