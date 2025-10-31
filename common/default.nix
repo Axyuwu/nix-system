@@ -100,7 +100,7 @@
     (pkgs.writeShellApplication {
       name = "sysupdate";
       text = ''
-        sudo nixos-rebuild switch --option tarball-ttl 0 --flake "github:Axyuwu/nix-system"
+        sudo nixos-rebuild switch --flake "github:Axyuwu/nix-system"
       '';
     })
   ];
