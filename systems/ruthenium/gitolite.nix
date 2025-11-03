@@ -15,6 +15,11 @@
         $RC{ROLES}{OWNERS} = 1;
         $RC{OWNER_ROLENAME} = "OWNERS";
         push( @{$RC{ENABLE}}, 'D' ); 
+        push( @{$RC{ENABLE}}, 'create' ); 
+        push( @{$RC{ENABLE}}, 'config' ); 
+        push( @{$RC{ENABLE}}, 'option' ); 
+        push( @{$RC{ENABLE}}, 'rsync' ); 
+        push( @{$RC{ENABLE}}, 'sudo' ); 
         push( @{$RC{ENABLE}}, 'set-default-roles' ); 
       '';
     };
