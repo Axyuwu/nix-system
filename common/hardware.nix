@@ -47,25 +47,25 @@ in
     };
   };
   config = lib.mkMerge [
-    (lib.mkIf cfg.defaultPartitions.enable (
-      {
-        fileSystems."/" = lib.mkDefault {
-          device = "/dev/disk/by-label/nixos";
-          fsType = cfg.defaultPartitions.rootFsType;
-        };
-        fileSystems."/boot" = lib.mkIf (cfg.bootFirmware == "uefi") (lib.mkDefault {
+    (lib.mkIf cfg.defaultPartitions.enable {
+      fileSystems."/" = lib.mkDefault {
+        device = "/dev/disk/by-label/nixos";
+        fsType = cfg.defaultPartitions.rootFsType;
+      };
+      fileSystems."/boot" = lib.mkIf (cfg.bootFirmware == "uefi") (
+        lib.mkDefault {
           device = "/dev/disk/by-label/boot";
           fsType = "vfat";
           options = [
             "fmask=0077"
             "dmask=0077"
           ];
-        });
-        swapDevices = lib.mkDefault [
-          { device = "/dev/disk/by-label/swap"; }
-        ];
-      }
-    ))
+        }
+      );
+      swapDevices = lib.mkDefault [
+        { device = "/dev/disk/by-label/swap"; }
+      ];
+    })
     {
       networking.useDHCP = lib.mkDefault true;
       nixpkgs.hostPlatform = systemPlatform;

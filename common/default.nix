@@ -31,6 +31,7 @@
   };
   boot.loader.timeout = 2;
   boot.supportedFilesystems = [ "ntfs" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.networkmanager.enable = true;
 
