@@ -39,7 +39,7 @@
         locations = {
           "/hidden/" = {
             extraConfig = ''
-              autoindex off
+              autoindex off;
             '';
           };
         };
