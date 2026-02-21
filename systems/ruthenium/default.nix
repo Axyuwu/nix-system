@@ -30,5 +30,24 @@
         ./gitolite.nix
       ];
     }
+    {
+      services.nginx.enable = true;
+      services.nginx.virtualHosts."ruthenium.uwuaxy.net" = {
+        forceSSL = true;
+        enableACME = true;
+        root = "/var/www/";
+        locations = {
+          "/hidden/" = {
+            extraConfig = ''
+              autoindex off
+            '';
+          };
+        };
+        extraConfig = ''
+          autoindex on;
+        '';
+      };
+
+    }
   ];
 }
