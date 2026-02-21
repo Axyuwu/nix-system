@@ -36,18 +36,10 @@
         forceSSL = true;
         enableACME = true;
         root = "/var/www/";
-        locations = {
-          "/hidden/" = {
-            extraConfig = ''
-              autoindex off;
-            '';
-          };
-        };
         extraConfig = ''
           autoindex on;
         '';
       };
-
     }
   ];
 }
