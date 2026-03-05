@@ -24,6 +24,5 @@
             nixcache
           ) (import ../systems)
         );
-    trusted-users = [ "@wheel" ];
   };
 }
