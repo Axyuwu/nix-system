@@ -1,6 +1,6 @@
 {
   system = "x86_64-linux";
-  #headless = true;
+  headless = true;
   nixcache = true;
   modules = [
     {
@@ -31,7 +31,6 @@
       ];
     }
     {
-      desktop.enable = true;
       services.nginx.enable = true;
       services.nginx.virtualHosts."ruthenium.uwuaxy.net" = {
         forceSSL = true;
