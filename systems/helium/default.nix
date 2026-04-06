@@ -33,7 +33,6 @@
       services.wivrn = {
         enable = true;
         openFirewall = true;
-        defaultRuntime = true;
       };
       nixpkgs.config.allowUnfree = true;
     }
