@@ -66,6 +66,7 @@
     enable = true;
     ports = [ 22 ];
     settings = {
+      X11Forwarding = true;
       PasswordAuthentication = false;
       AllowUsers = null;
     };
