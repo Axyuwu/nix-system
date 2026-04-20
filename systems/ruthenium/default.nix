@@ -28,6 +28,7 @@
         ./ntm_space.nix
         ./ft.nix
         ./gitolite.nix
+        ./cheesecraft.nix
       ];
     }
     {
