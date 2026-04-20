@@ -8,7 +8,7 @@
     packages = with pkgs; [
       tmux
       neovim
-      jdk21_headless
+      jdk8
       curl
     ];
     openssh.authorizedKeys.keys = [
