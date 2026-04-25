@@ -29,6 +29,7 @@
         ./ft.nix
         ./gitolite.nix
         ./cheesecraft.nix
+        ./gtnh.nix
       ];
     }
     {
