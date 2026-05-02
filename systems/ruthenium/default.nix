@@ -30,6 +30,7 @@
         ./gitolite.nix
         ./cheesecraft.nix
         ./gtnh.nix
+        ./rainbow.nitx
       ];
     }
     {
