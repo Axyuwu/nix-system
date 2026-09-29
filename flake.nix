@@ -4,17 +4,12 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    simple-nixos-mailserver = {
-      url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
     {
       nixpkgs,
       flake-utils,
-      simple-nixos-mailserver,
       ...
     }:
     (flake-utils.lib.eachDefaultSystem (system: {
@@ -29,9 +24,6 @@
           headless ? false,
           nixcache ? false,
         }:
-        let
-          pkgs = import nixpkgs { inherit system; };
-        in
         import (nixpkgs + "/nixos/lib/eval-config.nix") {
           specialArgs = {
             systemName = name;
@@ -40,7 +32,6 @@
           inherit system;
           modules = modules ++ [
             ./common
-            simple-nixos-mailserver.nixosModule
             (
               if headless then
                 (

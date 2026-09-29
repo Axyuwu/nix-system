@@ -15,7 +15,6 @@
     ./headless.nix
     ./nixcache.nix
     ./nix-settings.nix
-    ./mailserver.nix
     ./magikonfig
   ];
 
